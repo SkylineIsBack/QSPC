@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+# By SkylineIsBack
+
+clear
+echo "
+   ____   _____ _____   _____ 
+  / __ \ / ____|  __ \ / ____|
+ | |  | | (___ | |__) | |     
+ | |  | |\___ \|  ___/| |     
+ | |__| |____) | |    | |____ 
+  \___\_\_____/|_|     \_____|
+                              "
+echo ""
+defaultlocation="$(dirname $(readlink -f $0))"
+echo "Listing all available/installed overlays"
+echo ""
+echo "Listing overlays present in /vendor/overlay/ directory:"
+su -c mount -o rw,remount /vendor
+su -c ls /vendor/overlay/
+echo ""
+echo "Listing overlays present in backup directory:"
+ls $defaultlocation/backup/
+echo ""
+echo "Which overlay do you want to delete?"
+read whattodelete
+rm -rf $defaultlocation/backup/$whattodelete
+su -c mount -o rw,remount /vendor
+su -c rm -rf /vendor/overlay/$whattodelete
+echo ""
+echo "Deleted successfuly"
+echo ""
+echo "Do you want to reboot the device? (y/n)"
+read rebootdevice
+if [[ "$rebootdevice" == "y" ]]
+then
+    su -c reboot
+else
+    echo "Exiting"
+    exit
+fi
