@@ -17,3 +17,4 @@
 **Note**
 1) Quality of code might be low but it would get better as i learn more.
 2) Tested on Redmi Note 8.
+3) Only works on Android 11.
