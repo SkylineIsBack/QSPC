@@ -15,6 +15,7 @@ echo ""
 read -p "Number of columns in the QuickSettings: " columns
 read -p "Number of rows in the QuickSettings: " rows
 read -p "Number of tiles in the QuickQSPanel: " tiles
+read -p "Number of rows in the QuickQSPanel: " qqsrows
 defaultlocation="$(dirname $(readlink -f $0))"
 name=qspanel"$columns"x"$rows"x"$tiles"
 cd $defaultlocation/input
@@ -45,7 +46,8 @@ cd values
 touch config.xml
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <resources>
-    <integer name=\"quick_qs_panel_max_columns\">$tiles</integer>
+    <integer name=\"quick_qs_panel_max_tiles\">$tiles</integer>
+    <integer name=\"quick_qs_panel_max_rows\">$qqsrows</integer>
     <integer name=\"quick_settings_num_columns\">$columns</integer>
     <integer name=\"quick_settings_max_rows\">$rows</integer>
 </resources>" >> config.xml
@@ -79,7 +81,7 @@ then
     fi
 else
     rm -rf output/"${name}-overlay.apk"
-    echo "The compiled overlay is present in QSPC/output folder."
+    echo "The compiled overlay is present in QSPC/backup folder."
     echo "Exiting"
     exit
 fi
